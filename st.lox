@@ -1,2 +1,5 @@
-a b c
-d e f
+var a = 12.3;
+var str = "conosuba";
+if a != str {
+  print a;
+}
