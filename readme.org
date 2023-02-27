@@ -1,0 +1,18 @@
+* newbie in common lisp
+* usage
+only tested under sbcl.
+
+maybe only need sbcl? not sure.
+
+currently please run
+#+begin_src fish
+make test-repl
+#+end_src
+to enter an enteractive environment (which currently only echo your inputs :)
+
+* testing
+run the following command to test repl:
+#+begin_src fish
+make test-repl
+#+end_src
+other make targets are listed in the MAKEFILE.
