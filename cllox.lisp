@@ -3,32 +3,8 @@
 (ql:quickload 'parse-number)
 
 
+;; constants
 
-;; macro
-(defmacro handling-errors (&body body)
-  "https://www.cliki.net/REPL"
-  `(handler-bind
-       ((run-error
-          #'(lambda (e)
-              (format *error-output*
-                      "got error: ~a~%" e)
-              (invoke-restart 'ignore)))
-        (simple-condition
-          #'(lambda (err)
-              (format *error-output* "~&~A: ~%" (class-name (class-of err)))
-              (apply (function format) *error-output*
-                     (simple-condition-format-control   err)
-                     (simple-condition-format-arguments err))
-              (format *error-output* "~&")
-              (exit)))
-        (sb-sys:interactive-interrupt
-          #'(lambda (err)
-              (format *error-output* "~&~A: ~%  ~S~%goodbye~%"
-                      (class-name (class-of err)) err)
-              (exit))))
-     (progn ,@body)))
-
-
 (defparameter *keywords*
   (let ((ht (make-hash-table :test 'equal)))
     (loop for (key value) in
@@ -52,8 +28,43 @@
     ht))
 
 
+;; error
 
-;; clos
+(defmacro handling-errors (&body body)
+  "https://www.cliki.net/REPL"
+  `(handler-bind
+       ((run-error
+          #'(lambda (e)
+              (format *error-output*
+                      "got error: ~a~%" e)
+              (invoke-restart 'ignore)))
+        (simple-condition
+          #'(lambda (err)
+              (format *error-output* "~&~A: ~%" (class-name (class-of err)))
+              (apply (function format) *error-output*
+                     (simple-condition-format-control   err)
+                     (simple-condition-format-arguments err))
+              (format *error-output* "~&")
+              (exit)))
+        (sb-sys:interactive-interrupt
+          #'(lambda (err)
+              (format *error-output* "~&~A: ~%  ~S~%goodbye~%"
+                      (class-name (class-of err)) err)
+              (exit))))
+     (progn ,@body)))
+
+(define-condition run-error (error)
+  ((reason :initarg :reason :reader run-error-reason)
+   (line :initarg :line :reader run-error-line))
+  (:documentation "signaled during running code???")
+  (:report (lambda (c s)
+             (with-slots (reason line)
+                 c
+               (format s "~a on line ~a" reason line)))))
+
+
+;;; token
+
 (defclass token ()
   ((type :initarg :type :reader token-type)
    (lexeme :initarg :lexeme :reader token-lexeme)
@@ -67,6 +78,9 @@
     (with-slots (type lexeme literal)
         token
       (format s "~a ~a ~a" type lexeme literal))))
+
+
+;;; scanner
 
 ;; is this class unnecessary? it doesnt have inheritence
 (defclass scanner ()
@@ -246,21 +260,8 @@
       scanner
     (setf current (1+ current))))
 
-
 
-;; error
-(define-condition run-error (error)
-  ((reason :initarg :reason :reader run-error-reason)
-   (line :initarg :line :reader run-error-line))
-  (:documentation "signaled during running code???")
-  (:report (lambda (c s)
-             (with-slots (reason line)
-                 c
-               (format s "~a on line ~a" reason line)))))
-
-
-
-
+;;; token-type
 
 (defconstant +token-type+
   '(:left-paren :right-paren
@@ -280,9 +281,9 @@
 
     :eof))
 
-
-
 
+;;; entry function
+
 (defun main ()
   (let* ((args (cdr sb-ext:*posix-argv*))
          (len (length args)))
@@ -319,5 +320,9 @@
       nil)))
 
 
+;;; finish up
 
 (main)
+
+;;; cllox.lisp ends here
+
