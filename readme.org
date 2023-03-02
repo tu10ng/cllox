@@ -1,18 +1,30 @@
 * newbie in common lisp
 * usage
-only tested under sbcl.
-
-maybe only need sbcl? not sure.
+need sbcl and quicklisp setup. quicksetup:
+#+begin_src fish
+sudo pacman -S sbcl quicklisp
+sbcl --load '/usr/share/quicklisp/quicklisp.lisp' --eval '(quicklisp-quickstart:install :path "~/.quicklisp)'
+#+end_src
 
 currently please run
 #+begin_src fish
 make test-repl
 #+end_src
-to enter an enteractive environment (which currently only echo your inputs :)
+to enter an enteractive environment.
+
+or
+#+begin_src fish
+make test-file
+#+end_src
+to see some results evaluated from file: st.lox.
 
 * testing
+i'm not familiar with testing, glad if you help.
+
 run the following command to test repl:
 #+begin_src fish
 make test-repl
 #+end_src
 other make targets are listed in the MAKEFILE.
+
+
