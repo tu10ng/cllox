@@ -1,17 +1,10 @@
 * newbie in common lisp
 * usage
 need sbcl and quicklisp setup.
-quicksetup:
+if you dont have them, this is a quicksetup:
 #+begin_src fish
 sudo pacman -S sbcl quicklisp
-sbcl --load '/usr/share/quicklisp/quicklisp.lisp' --eval '(quicklisp-quickstart:install :path "~/.quicklisp)'
-
-#+end_src
-and then install these packages in sbcl repl:
-#+begin_src common-lisp
-(ql:quickload "string-case")
-(ql:quickload "parse-number")
-(ql:quickload "deploy")
+sbcl --quit --load '/usr/share/quicklisp/quicklisp.lisp' --eval '(quicklisp-quickstart:install :path "~/.quicklisp")' --eval '(ql:add-to-init-file)'
 
 #+end_src
 
@@ -23,18 +16,18 @@ make run
 to enter an enteractive environment.
 
 ** lox file
-after build
-#+begin_src fish
-make build
-#+end_src
 you can run with
 #+begin_src fish
-./bin/cllox SOMETHING.lox
-
+make run SOMETHING.lox
 #+end_src
 or
 #+begin_src fish
-make run SOMETHING.lox
+./cllox SOMETHING.lox
+
+#+end_src
+after build
+#+begin_src fish
+make build
 #+end_src
 
 * testing
@@ -49,9 +42,14 @@ make test
 results:
 #+begin_quote
 var a = 12.3;
+
 var str = "conosuba";
+
 if a != str {
+
   print a;
+  
 }
+
 #<TOKEN EOF  NIL> #<TOKEN RIGHT-BRACE  NIL> #<TOKEN SEMICOLON  NIL> #<TOKEN INDENTIFIER a NIL> #<TOKEN PRINT print NIL> #<TOKEN LEFT-BRACE  NIL> #<TOKEN INDENTIFIER str NIL> #<TOKEN BANG-EQUAL  NIL> #<TOKEN INDENTIFIER a NIL> #<TOKEN IF if NIL> #<TOKEN SEMICOLON  NIL> #<TOKEN STRING "conosuba" conosuba> #<TOKEN EQUAL  NIL> #<TOKEN INDENTIFIER str NIL> #<TOKEN VAR var NIL> #<TOKEN SEMICOLON  NIL> #<TOKEN NUMBER 12.3 12.3> #<TOKEN EQUAL  NIL> #<TOKEN INDENTIFIER a NIL> #<TOKEN VAR var NIL> 
 #+end_quote

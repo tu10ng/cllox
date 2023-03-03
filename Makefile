@@ -3,7 +3,7 @@
 LISP ?= sbcl
 
 # the default path of executable after running `make build'
-EXEC = ./bin/cllox
+EXEC = ./cllox
 
 
 
