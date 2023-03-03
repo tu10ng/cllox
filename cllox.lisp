@@ -89,6 +89,16 @@
 
 ;;; scanner
 
+(defmacro add-token (type lexeme &optional literal)
+  "literal will be nil if not provided."
+  `(setf tokens
+         (cons (make-instance 'token
+                              :type ,type
+                              :lexeme ,lexeme
+                              :literal ,literal
+                              :line line)
+               tokens)))
+
 ;; is this class unnecessary? it doesnt have inheritence
 (defclass scanner ()
   ((source :initarg :source :accessor scanner-source
@@ -108,29 +118,13 @@
       (setf start current)
       (scan-token scanner))
     ;; add eof to the end
-    (setf tokens
-          (cons (make-instance 'token
-                               :type :eof
-                               :lexeme ""
-                               :literal nil
-                               :line line)
-                tokens))))
-
-(defmacro add-token (type lexeme &optional literal)
-  "literal will be nil if not provided."
-  `(setf tokens
-         (cons (make-instance 'token
-                              :type ,type
-                              :lexeme ,lexeme
-                              :literal ,literal
-                              :line line)
-               tokens)))
+    (add-token :eof "")))
 
 (defmacro 1char-token-case (keyform &body lst)
   `(case ,keyform
      ,@(loop for (a b) in lst collect
-             `(,a (add-token ,b (subseq source start current))
-                  (advance scanner)
+             `(,a (advance scanner)
+                  (add-token ,b (subseq source start current))
                   ;; maybe this return is not needed
                   (return-from scan-token)))))
 
@@ -138,9 +132,9 @@
   "string-case need extra paren around keyform"
   `(string-case:string-case (,keyform :default nil)
      ,@(loop for (a b) in lst collect
-             `(,a (add-token ,b (subseq source start current))
+             `(,a (advance scanner)
                   (advance scanner)
-                  (advance scanner)
+                  (add-token ,b (subseq source start current))
                   (return-from scan-token)))))
 
 (defmacro space-token-case (keyform lst)
