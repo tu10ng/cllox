@@ -38,18 +38,3 @@ you can see some results running
 make test
 
 #+end_src
-
-results:
-#+begin_quote
-var a = 12.3;
-
-var str = "conosuba";
-
-if a != str {
-
-  print a;
-  
-}
-
-#<TOKEN EOF  NIL> #<TOKEN RIGHT-BRACE } NIL> #<TOKEN SEMICOLON ; NIL> #<TOKEN INDENTIFIER a NIL> #<TOKEN PRINT print NIL> #<TOKEN LEFT-BRACE { NIL> #<TOKEN INDENTIFIER str NIL> #<TOKEN BANG-EQUAL != NIL> #<TOKEN INDENTIFIER a NIL> #<TOKEN IF if NIL> #<TOKEN SEMICOLON ; NIL> #<TOKEN STRING "conosuba" conosuba> #<TOKEN EQUAL = NIL> #<TOKEN INDENTIFIER str NIL> #<TOKEN VAR var NIL> #<TOKEN SEMICOLON ; NIL> #<TOKEN NUMBER 12.3 12.3> #<TOKEN EQUAL = NIL> #<TOKEN INDENTIFIER a NIL> #<TOKEN VAR var NIL> 
-#+end_quote
