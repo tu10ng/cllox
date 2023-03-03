@@ -1,12 +1,14 @@
 * newbie in common lisp
 * usage
 need sbcl and quicklisp setup.
-if you dont have them, this is a quicksetup:
+
+if you dont have them, this is a quicksetup for archlinux:
 #+begin_src fish
 sudo pacman -S sbcl quicklisp
 sbcl --quit --load '/usr/share/quicklisp/quicklisp.lisp' --eval '(quicklisp-quickstart:install :path "~/.quicklisp")' --eval '(ql:add-to-init-file)'
 
 #+end_src
+please refer to [[https://lispcookbook.github.io/cl-cookbook/getting-started.html][getting-started]] for more information.
 
 ** lox repl
 please run
