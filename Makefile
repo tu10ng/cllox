@@ -15,7 +15,7 @@ test : build
 
 build : $(EXEC)
 
-$(EXEC) : cllox.asd cllox.lisp
+$(EXEC) : cllox.asd *.lisp
 	$(LISP) --eval '(asdf:load-asd (merge-pathnames "cllox.asd" (uiop:getcwd)))' \
             --eval '(ql:quickload :cllox)' \
             --eval '(asdf:make :cllox)' \

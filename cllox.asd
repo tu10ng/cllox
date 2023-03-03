@@ -1,6 +1,10 @@
 (defsystem "cllox"
   :depends-on ("string-case" "parse-number")
-  :components ((:file "cllox"))
+  :serial t
+  :components ((:file "packages")
+               (:file "token")
+               (:file "scanner")
+               (:file "cllox"))
   :build-operation "program-op"
   :build-pathname "cllox"
   :entry-point "cllox:main")
