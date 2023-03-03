@@ -18,4 +18,12 @@
 (defpackage :cllox.token
   (:use :cl)
   (:export
-   #:token))
+   #:token
+   #:token-type
+   #:token-lexeme
+   #:token-literal
+   #:token-line))
+
+(defpackage :cllox.expr
+  (:use :cl))
+  

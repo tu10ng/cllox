@@ -40,3 +40,10 @@ you can see some results running
 make test
 
 #+end_src
+
+* misc
+** why use `parse-number' instead of `read-from-string'?
+123.456.789
+
+* todo
+
