@@ -1,6 +1,9 @@
-(require 'uiop)
-(ql:quickload 'string-case)
-(ql:quickload 'parse-number)
+(defpackage :cllox
+  (:use :cl :uiop :string-case :parse-number)
+  (:export
+   #:main))
+
+(in-package :cllox)
 
 
 ;; constants
@@ -45,12 +48,16 @@
                      (simple-condition-format-control   err)
                      (simple-condition-format-arguments err))
               (format *error-output* "~&")
-              (exit)))
+              (sb-ext:exit)))
+        (end-of-file
+          #'(lambda (e)
+              (format *error-output* "goodbye~~~%")
+              (sb-ext:exit)))
         (sb-sys:interactive-interrupt
           #'(lambda (err)
               (format *error-output* "~&~A: ~%  ~S~%goodbye~%"
                       (class-name (class-of err)) err)
-              (exit))))
+              (sb-ext:exit))))
      (progn ,@body)))
 
 (define-condition run-error (error)
@@ -263,7 +270,7 @@
 
 ;;; token-type
 
-(defconstant +token-type+
+(defparameter *token-type*
   '(:left-paren :right-paren
     :left-brace :right-brace
     :comma :dot :minus :plus :semicolon :slash :star
@@ -322,7 +329,7 @@
 
 ;;; finish up
 
-(main)
+;;(main)
 
 ;;; cllox.lisp ends here
 

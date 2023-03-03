@@ -1,16 +1,31 @@
-.PHONY = run test test-args test-file test-repl
+.PHONY = run test build
 
-SBCL = sbcl --load '${HOME}/.sbclrc' --script
+LISP ?= sbcl
 
-run : test
+# the default path of executable after running `make build'
+EXEC = ./bin/cllox
 
-test : test-args test-file test-repl
+
 
-test-args : cllox.lisp
-	$(SBCL) cllox.lisp st.lox b
+run : build
+	@$(EXEC) $(RUN_ARGS)
 
-test-file : cllox.lisp st.lox
-	$(SBCL) cllox.lisp st.lox
+test : build
+	@$(EXEC) st.lox 2>/dev/null
 
-test-repl : cllox.lisp
-	$(SBCL) cllox.lisp
+build : $(EXEC)
+
+$(EXEC) : cllox.asd cllox.lisp
+	$(LISP) --eval '(asdf:load-asd (merge-pathnames "cllox.asd" (uiop:getcwd)))' \
+            --eval '(ql:quickload :cllox)' \
+            --eval '(asdf:make :cllox)' \
+            --eval '(quit)'
+
+
+
+# pass arguments to `make run'
+# https://stackoverflow.com/questions/2214575/passing-arguments-to-make-run
+ifeq (run,$(firstword $(MAKECMDGOALS)))
+  RUN_ARGS := $(wordlist 2,$(words $(MAKECMDGOALS)),$(MAKECMDGOALS))
+  $(eval $(RUN_ARGS):;@:)
+endif
