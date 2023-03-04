@@ -25,5 +25,17 @@
    #:token-line))
 
 (defpackage :cllox.expr
-  (:use :cl))
+  (:use :cl)
+  (:export
+   #:binary
+   #:grouping
+   #:literal
+   #:unary
+   #:ast))
   
+(defpackage :cllox.parser
+  (:use :cl)
+  (:export
+   #:parser
+   #:parse))
+

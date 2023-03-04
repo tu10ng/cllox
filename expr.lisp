@@ -52,7 +52,7 @@
 ;; ast
 
 (defgeneric ast (object)
-  (:documentation "return prefix string"))
+  (:documentation "return a prefix notation string representing expr"))
 
 ;; can't use `with-slots' ? error: SB-PCL::MISSING-SLOT for `lexeme'
 (defmethod ast ((token cllox.token:token))

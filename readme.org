@@ -1,4 +1,7 @@
-* newbie in common lisp
+* a work in progress
+- newbie in common lisp
+- working on parsing statement
+  
 * usage
 need sbcl and quicklisp setup.
 

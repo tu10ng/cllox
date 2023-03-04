@@ -57,7 +57,7 @@
       (setf start current)
       (scan-token scanner))
     ;; add eof to the end
-    (add-token :eof "")
+    (add-token :eof "EOF")
     (setf tokens (nreverse tokens))))
 
 (defmacro 1char-token-case (keyform &body lst)

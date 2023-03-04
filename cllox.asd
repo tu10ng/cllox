@@ -5,6 +5,7 @@
                (:file "token")
                (:file "scanner")
                (:file "expr")
+               (:file "parser")
                (:file "cllox"))
   :build-operation "program-op"
   :build-pathname "cllox"
