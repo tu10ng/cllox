@@ -11,7 +11,7 @@ run : build
 	@$(EXEC) $(RUN_ARGS)
 
 test : build
-	@$(EXEC) st.lox 2>/dev/null
+	@$(EXEC) st.lox
 
 build : $(EXEC)
 

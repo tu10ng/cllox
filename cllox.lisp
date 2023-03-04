@@ -68,20 +68,20 @@
 (defun run (src)
   (restart-case
       (progn
-        (format t "src:~%---~%~a~%---~%" src)
+        (format *error-output* "src:~%---~%~a~%---~%" src)
         (let* ((scanner (make-instance 'cllox.scanner:scanner
                                        :source src))
                (tokens (progn
                          (cllox.scanner:scan-tokens scanner)
                          (cllox.scanner:scanner-tokens
                           scanner))))
-          (format t "tokens:~%---~%~a~%---~%" tokens)
+          (format *error-output* "tokens:~%---~%~a~%---~%" tokens)
           (let* ((parser
                   (make-instance
                    'cllox.parser:parser :tokens tokens))
                  (expr
                    (cllox.parser:parse parser)))
-            (format t "ast:~%---~%~a~%" (cllox.expr:ast expr)))))
+            (format *error-output* "ast:~%---~%~a~%" (cllox.expr:ast expr)))))
     (ignore ()
       :report "ignore error in running"
       nil)))
