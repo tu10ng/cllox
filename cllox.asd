@@ -6,6 +6,7 @@
                (:file "scanner")
                (:file "expr")
                (:file "parser")
+               (:file "interpreter")
                (:file "cllox"))
   :build-operation "program-op"
   :build-pathname "cllox"

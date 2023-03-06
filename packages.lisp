@@ -39,3 +39,8 @@
    #:parser
    #:parse))
 
+(defpackage :cllox.interpreter
+  (:use :cl)
+  (:export
+   #:interpret))
+

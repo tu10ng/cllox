@@ -81,7 +81,11 @@
                    'cllox.parser:parser :tokens tokens))
                  (expr
                    (cllox.parser:parse parser)))
-            (format *error-output* "ast:~%---~%~a~%" (cllox.expr:ast expr)))))
+            (format *error-output* "ast:~%---~%~a~%"
+                    (cllox.expr:ast expr))
+            (format *error-output* "ir:~%---~%")
+            (format t "~a~%"
+                    (cllox.interpreter:interpret expr)))))
     (ignore ()
       :report "ignore error in running"
       nil)))
